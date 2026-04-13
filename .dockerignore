@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local data (never bake the DB into the image)
+data/
+*.db
+
+# Generated PDFs
+*.pdf
+
+# Secrets
+.env
+
+# Dev tooling
+.git/
+.gitignore
