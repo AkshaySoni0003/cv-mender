@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 10.5pt;
+    color: #1a1a1a;
+    line-height: 1.45;
+  }
+
+  /* ── Header ───────────────────────────────────────── */
+  .header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2c5282;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 21pt;
+    font-weight: 700;
+    color: #2c5282;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .contact {
+    font-size: 9.5pt;
+    color: #4a5568;
+  }
+  .contact span + span::before { content: " · "; }
+
+  /* ── Section heading ──────────────────────────────── */
+  section { margin-bottom: 13px; }
+  h2 {
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #2c5282;
+    border-bottom: 1px solid #bee3f8;
+    padding-bottom: 2px;
+    margin-bottom: 7px;
+  }
+
+  /* ── Summary ──────────────────────────────────────── */
+  .summary { color: #4a5568; font-size: 10pt; }
+
+  /* ── Experience / Education entries ──────────────── */
+  .entry { margin-bottom: 9px; }
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .entry-title { font-weight: 700; }
+  .entry-sub   { font-style: italic; color: #4a5568; }
+  .entry-dates { color: #718096; font-size: 9.5pt; white-space: nowrap; margin-left: 8px; }
+  .entry-location { color: #718096; font-size: 9.5pt; margin-top: 1px; }
+
+  ul { padding-left: 15px; margin-top: 4px; }
+  li { margin-bottom: 2px; font-size: 10pt; }
+
+  /* ── Skills ───────────────────────────────────────── */
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 4px; }
+  .skill {
+    background: #ebf8ff;
+    color: #2b6cb0;
+    border: 1px solid #bee3f8;
+    padding: 2px 9px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>{{ name }}</h1>
+  <div class="contact">
+    {% if email %}<span>{{ email }}</span>{% endif %}
+    {% if phone %}<span>{{ phone }}</span>{% endif %}
+    {% if location %}<span>{{ location }}</span>{% endif %}
+    {% if linkedin %}<span>{{ linkedin }}</span>{% endif %}
+    {% if portfolio %}<span>{{ portfolio }}</span>{% endif %}
+  </div>
+</div>
+
+{% if summary %}
+<section>
+  <h2>Professional Summary</h2>
+  <p class="summary">{{ summary }}</p>
+</section>
+{% endif %}
+
+{% if experience %}
+<section>
+  <h2>Experience</h2>
+  {% for job in experience %}
+  <div class="entry">
+    <div class="entry-header">
+      <div>
+        <span class="entry-title">{{ job.title }}</span>
+        &nbsp;·&nbsp;
+        <span class="entry-sub">{{ job.company }}</span>
+      </div>
+      <span class="entry-dates">{{ job.dates }}</span>
+    </div>
+    {% if job.location %}<div class="entry-location">{{ job.location }}</div>{% endif %}
+    {% if job.bullets %}
+    <ul>
+      {% for bullet in job.bullets %}<li>{{ bullet }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if education %}
+<section>
+  <h2>Education</h2>
+  {% for edu in education %}
+  <div class="entry">
+    <div class="entry-header">
+      <div>
+        <span class="entry-title">{{ edu.degree }}</span>
+        &nbsp;·&nbsp;
+        <span class="entry-sub">{{ edu.institution }}</span>
+      </div>
+      <span class="entry-dates">{{ edu.dates }}</span>
+    </div>
+    {% if edu.details %}<p style="color:#4a5568;font-size:10pt;margin-top:3px;">{{ edu.details }}</p>{% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if skills %}
+<section>
+  <h2>Skills</h2>
+  <div class="skills-grid">
+    {% for skill in skills %}<span class="skill">{{ skill }}</span>{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if certifications %}
+<section>
+  <h2>Certifications</h2>
+  <ul>
+    {% for cert in certifications %}<li>{{ cert }}</li>{% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+</body>
+</html>
