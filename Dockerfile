@@ -48,7 +48,12 @@ RUN playwright install chromium && playwright install-deps chromium
 # Copy application code
 COPY . .
 
+# Create persistent data directory for SQLite DB
+RUN mkdir -p /app/data
+
 EXPOSE 8501
+
+ENV DATA_DIR=/app/data
 
 CMD ["streamlit", "run", "app.py", \
      "--server.port=8501", \
